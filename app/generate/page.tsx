@@ -6,6 +6,21 @@ import { Suspense } from "react";
 import { useCompletion } from "@ai-sdk/react";
 import { campfinderConfig } from "@/config/verticals/campfinder.config";
 
+/** Strip markdown code fences and preamble from Claude output */
+function cleanHtml(raw: string): string {
+  let html = raw;
+  const fenceMatch = html.match(/```html?\s*([\s\S]*?)```/);
+  if (fenceMatch) {
+    html = fenceMatch[1].trim();
+  }
+  // Also strip any leading non-HTML text before the first tag
+  const tagStart = html.indexOf("<");
+  if (tagStart > 0) {
+    html = html.slice(tagStart);
+  }
+  return html;
+}
+
 function GenerateContent() {
   const searchParams = useSearchParams();
   const clientId = searchParams.get("client_id");
@@ -17,7 +32,7 @@ function GenerateContent() {
   const { completion, isLoading, complete, setCompletion } = useCompletion({
     api: "/api/generate",
     streamProtocol: "text",
-    onFinish: (_prompt, text) => { setOutput(text); },
+    onFinish: (_prompt, text) => { setOutput(cleanHtml(text)); },
     onError: () => { setError("We hit a snag building your Summer Map. Tap Generate to try again."); },
   });
 
@@ -31,7 +46,7 @@ function GenerateContent() {
   }
 
   function handleCopy() {
-    navigator.clipboard.writeText(output || completion);
+    navigator.clipboard.writeText(output || cleanHtml(completion));
   }
 
   if (!clientId) {
@@ -112,7 +127,7 @@ function GenerateContent() {
         {(output || completion) && (
           <div className="fade-up">
             <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4">
-              <div dangerouslySetInnerHTML={{ __html: output || completion }} />
+              <div dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
             </div>
 
             {/* Action buttons */}
