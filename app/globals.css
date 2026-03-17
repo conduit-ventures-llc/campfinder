@@ -5,22 +5,28 @@
   --color-cf-green-light: #D8EFE3;
   --color-cf-blue: #1B4B7A;
   --color-cf-blue-light: #E3EDF5;
+  --color-cf-blue-dark: #0F2D4D;
   --color-cf-gold: #C8922A;
-  --color-cf-warm: #FAF6F0;
+  --color-cf-gold-light: #FFF8EB;
+  --color-cf-warm: #FAFAF7;
   --color-cf-card: #FFFFFF;
   --color-cf-text: #1C1917;
   --color-cf-muted: #78716C;
   --color-cf-border: #E8E0D8;
   --color-cf-rust: #B5451B;
+  --color-cf-amber: #D97706;
+  --color-cf-amber-light: #FFFBEB;
 
   --font-serif: "Lora", Georgia, serif;
   --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; @apply font-sans; }
   input:focus, textarea:focus, select:focus { outline: none; }
+  body { @apply bg-cf-warm text-cf-text; }
 }
 
 @keyframes fadeUp {
@@ -34,3 +40,151 @@
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 .spin-slow { animation: spin-slow 0.8s linear infinite; }
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 146, 42, 0.2); }
+  50% { box-shadow: 0 0 0 12px rgba(200, 146, 42, 0); }
+}
+.pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+
+/* ─── CampFinder Output Styles ────────────────────────────────────────────── */
+
+.cf-output {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1C1917;
+}
+
+.cf-output h1, .cf-output h2, .cf-output h3 {
+  font-family: 'Lora', Georgia, serif;
+  color: #1B4B7A;
+}
+
+.cf-output h1 { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
+.cf-output h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; margin-top: 24px; }
+.cf-output h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; margin-top: 16px; }
+
+.cf-output p { margin-bottom: 12px; }
+.cf-output ul, .cf-output ol { margin-bottom: 12px; padding-left: 20px; }
+.cf-output li { margin-bottom: 6px; }
+.cf-output strong { font-weight: 700; }
+
+/* Option cards */
+.cf-output .option-card,
+.cf-output div[class*="option"] {
+  background: white;
+  border: 1px solid #E8E0D8;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+/* Phase/week headers */
+.cf-output .week-header,
+.cf-output div[class*="week-header"],
+.cf-output th {
+  background: #1B4B7A;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cf-output td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #E8E0D8;
+  font-size: 13px;
+}
+
+.cf-output table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #E8E0D8;
+}
+
+/* Conflict alerts */
+.cf-output .conflict,
+.cf-output div[class*="conflict"],
+.cf-output .warning {
+  background: #FFFBEB;
+  border-left: 4px solid #D97706;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+/* Solution callouts */
+.cf-output .solution,
+.cf-output .resolved,
+.cf-output div[class*="solution"] {
+  background: #D8EFE3;
+  border-left: 4px solid #2D6A4F;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+/* Cost totals */
+.cf-output .cost,
+.cf-output .total-cost,
+.cf-output div[class*="cost"] {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1B4B7A;
+}
+
+.cf-output .cost-breakdown {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  color: #78716C;
+}
+
+/* Camp cards with urgency accent */
+.cf-output .camp-card,
+.cf-output div[class*="camp"] {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid #E8E0D8;
+  border-left: 4px solid #1B4B7A;
+  border-radius: 0 12px 12px 0;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.cf-output .camp-card.urgent,
+.cf-output div[class*="urgent"] {
+  border-left-color: #B5451B;
+}
+
+.cf-output .camp-card.deadline,
+.cf-output div[class*="deadline"] {
+  border-left-color: #D97706;
+}
+
+/* Drive time badges */
+.cf-output .drive-time,
+.cf-output span[class*="drive"] {
+  display: inline-block;
+  background: #E3EDF5;
+  color: #1B4B7A;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+/* Print styles */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; }
+  .cf-output { font-size: 12px; }
+}

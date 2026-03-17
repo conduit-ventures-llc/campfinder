@@ -157,19 +157,38 @@ export default function CampFinderIntakePage() {
     }
   }
 
+  // Progress percentages by phase
+  const progressMap: Record<Phase, number> = {
+    open_mic: 15,
+    extracting: 35,
+    what_i_heard: 50,
+    adaptive: 70,
+    submitting: 90,
+    wow: 100,
+  };
+
   // ─── OPEN MIC ─────────────────────────────────────────────────────────
 
   if (phase === "open_mic") {
     return (
       <div className="min-h-screen bg-cf-warm">
         <nav className="bg-cf-blue px-6">
-          <div className="max-w-[680px] mx-auto py-4 flex items-center gap-2.5">
-            <span className="text-[22px]">&#9978;&#65039;</span>
-            <span className="text-white text-xl font-bold font-serif tracking-tight">CampFinder</span>
+          <div className="max-w-[680px] mx-auto py-4 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[22px]">&#9978;&#65039;</span>
+              <span className="text-white text-xl font-bold font-serif tracking-tight">CampFinder</span>
+            </div>
+            <span className="text-white/50 text-xs">Step 1 of 5</span>
           </div>
         </nav>
+        {/* Progress bar */}
+        <div className="max-w-[680px] mx-auto w-full px-6 pt-2">
+          <div className="h-1.5 bg-cf-border rounded-full overflow-hidden">
+            <div className="h-full bg-cf-gold rounded-full transition-all duration-500" style={{ width: `${progressMap.open_mic}%` }} />
+          </div>
+        </div>
 
-        <div className="max-w-[680px] mx-auto px-6 pt-10 pb-24 fade-up">
+        <div className="max-w-[680px] mx-auto px-6 pt-8 pb-24 fade-up">
           <h1 className="font-serif text-[28px] sm:text-[36px] font-bold text-cf-blue leading-snug mb-3">
             Tell me about your summer camp situation.
           </h1>
@@ -276,13 +295,21 @@ export default function CampFinderIntakePage() {
     return (
       <div className="min-h-screen bg-cf-warm">
         <nav className="bg-cf-blue px-6">
-          <div className="max-w-[680px] mx-auto py-4 flex items-center gap-2.5">
-            <span className="text-[22px]">&#9978;&#65039;</span>
-            <span className="text-white text-xl font-bold font-serif tracking-tight">CampFinder</span>
+          <div className="max-w-[680px] mx-auto py-4 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[22px]">&#9978;&#65039;</span>
+              <span className="text-white text-xl font-bold font-serif tracking-tight">CampFinder</span>
+            </div>
+            <span className="text-white/50 text-xs">Step 2 of 5</span>
           </div>
         </nav>
+        <div className="max-w-[680px] mx-auto w-full px-6 pt-2">
+          <div className="h-1.5 bg-cf-border rounded-full overflow-hidden">
+            <div className="h-full bg-cf-gold rounded-full transition-all duration-500" style={{ width: `${progressMap.what_i_heard}%` }} />
+          </div>
+        </div>
 
-        <div className="max-w-[680px] mx-auto px-6 pt-10 pb-24 fade-up">
+        <div className="max-w-[680px] mx-auto px-6 pt-8 pb-24 fade-up">
           <h1 className="font-serif text-[28px] font-bold text-cf-blue mb-2">Here&apos;s what I heard.</h1>
           <p className="text-cf-muted text-[15px] mb-8">Confirm this is right, or add what I missed.</p>
 
@@ -380,11 +407,16 @@ export default function CampFinderIntakePage() {
               <span className="text-[22px]">&#9978;&#65039;</span>
               <span className="text-white text-xl font-bold font-serif tracking-tight">CampFinder</span>
             </div>
-            <span className="text-white/70 text-xs">{questions.length} question{questions.length !== 1 ? "s" : ""} left</span>
+            <span className="text-white/50 text-xs">Step 3 of 5 &middot; {questions.length} question{questions.length !== 1 ? "s" : ""}</span>
           </div>
         </nav>
+        <div className="max-w-[680px] mx-auto w-full px-6 pt-2">
+          <div className="h-1.5 bg-cf-border rounded-full overflow-hidden">
+            <div className="h-full bg-cf-gold rounded-full transition-all duration-500" style={{ width: `${progressMap.adaptive}%` }} />
+          </div>
+        </div>
 
-        <div className="max-w-[680px] mx-auto px-6 pt-10 pb-24 fade-up">
+        <div className="max-w-[680px] mx-auto px-6 pt-8 pb-24 fade-up">
           <h1 className="font-serif text-[24px] font-bold text-cf-blue mb-2">Just a few more things.</h1>
           <p className="text-cf-muted text-[15px] mb-8">I only ask what you haven&apos;t already told me.</p>
 

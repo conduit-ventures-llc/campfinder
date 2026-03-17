@@ -72,7 +72,10 @@ function GenerateContent() {
             <span className="text-[22px]">&#9978;&#65039;</span>
             <span className="text-white text-xl font-bold font-serif tracking-tight">CampFinder</span>
           </div>
-          <span className="text-white/70 text-sm">Your Summer Map</span>
+          <div className="flex items-center gap-3">
+            <span className="text-white/50 text-xs">Your Summer Map</span>
+            <a href="/" className="text-white/60 text-xs hover:text-white transition min-h-[44px] flex items-center px-2">Home</a>
+          </div>
         </div>
       </nav>
 
@@ -126,8 +129,8 @@ function GenerateContent() {
         {/* Output */}
         {(output || completion) && (
           <div className="fade-up">
-            <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4">
-              <div dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
+            <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4 shadow-sm">
+              <div className="cf-output" dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
             </div>
 
             {/* Action buttons */}
