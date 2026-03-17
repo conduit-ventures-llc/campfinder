@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cf-green: #2D6A4F;
+  --color-cf-green-light: #D8EFE3;
+  --color-cf-blue: #1B4B7A;
+  --color-cf-blue-light: #E3EDF5;
+  --color-cf-gold: #C8922A;
+  --color-cf-warm: #FAF6F0;
+  --color-cf-card: #FFFFFF;
+  --color-cf-text: #1C1917;
+  --color-cf-muted: #78716C;
+  --color-cf-border: #E8E0D8;
+  --color-cf-rust: #B5451B;
+
+  --font-serif: "Lora", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; @apply font-sans; }
+  input:focus, textarea:focus, select:focus { outline: none; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.45s ease forwards; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fadeIn 0.3s ease-in forwards; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 0.8s linear infinite; }
