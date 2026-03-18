@@ -47,6 +47,20 @@ function GenerateContent() {
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState<"map" | "builder">("map");
 
+  // Family Morning Brief state
+  const [brief, setBrief] = useState<Record<string, unknown> | null>(null);
+  const [briefLoading, setBriefLoading] = useState(false);
+
+  async function loadBrief() {
+    if (!clientId) return;
+    setBriefLoading(true);
+    try {
+      const res = await fetch(`/api/family-brief?client_id=${clientId}`);
+      if (res.ok) setBrief(await res.json());
+    } catch { /* silent */ }
+    finally { setBriefLoading(false); }
+  }
+
   // Smart Refine state
   const [refineInput, setRefineInput] = useState("");
   const [refining, setRefining] = useState(false);
@@ -178,6 +192,47 @@ function GenerateContent() {
       </nav>
 
       <div className="max-w-[900px] mx-auto px-6 pt-8 pb-24">
+        {/* Family Morning Brief */}
+        {clientId && (
+          <div className="bg-white border border-cf-border rounded-xl p-5 mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-serif text-[18px] font-bold text-[#0A1E3D]">Family Morning Brief</h2>
+              <button onClick={loadBrief} className="text-[13px] text-[#C8922A] hover:underline">Refresh</button>
+            </div>
+            {briefLoading ? (
+              <p className="text-[15px] text-[#6B7280]">Building your family&apos;s daily brief...</p>
+            ) : brief ? (
+              <div className="space-y-3">
+                <p className="text-[16px] text-[#1A1A1A] font-medium">{brief.greeting as string}</p>
+                {(brief.today as string[] | undefined)?.length ? (
+                  <div>
+                    <p className="text-[13px] text-[#6B7280] uppercase tracking-wide font-semibold mb-1">Today</p>
+                    {(brief.today as string[]).map((item: string, i: number) => (
+                      <p key={i} className="text-[15px] text-[#1A1A1A]">&bull; {item}</p>
+                    ))}
+                  </div>
+                ) : null}
+                {(brief.this_week as string[] | undefined)?.length ? (
+                  <div>
+                    <p className="text-[13px] text-[#6B7280] uppercase tracking-wide font-semibold mb-1">This Week</p>
+                    {(brief.this_week as string[]).map((item: string, i: number) => (
+                      <p key={i} className="text-[15px] text-[#1A1A1A]">&bull; {item}</p>
+                    ))}
+                  </div>
+                ) : null}
+                {typeof brief.faith === "string" && brief.faith && (
+                  <div className="bg-[#FAFAF8] border-l-[3px] border-[#C8922A] pl-3 py-2 rounded-r">
+                    <p className="text-[13px] text-[#6B7280] uppercase tracking-wide font-semibold mb-1">Faith</p>
+                    <p className="text-[15px] text-[#1A1A1A]">{brief.faith}</p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button onClick={loadBrief} className="text-[15px] text-[#C8922A] font-semibold">Load today&apos;s brief &rarr;</button>
+            )}
+          </div>
+        )}
+
         {/* Output type selector */}
         <div className="mb-6">
           <label className="block text-[15px] font-bold text-cf-text mb-3">What do you need?</label>
