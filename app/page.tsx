@@ -10,7 +10,7 @@ export default function HomePage() {
           </div>
           <a
             href="/intake"
-            className="text-white/80 text-sm font-bold hover:text-white transition min-h-[44px] flex items-center px-3"
+            className="text-white/80 text-[15px] font-bold hover:text-white transition min-h-[44px] flex items-center px-3"
           >
             Get Started &rarr;
           </a>
@@ -20,7 +20,7 @@ export default function HomePage() {
       {/* Hero */}
       <div className="flex-1 flex items-center justify-center px-6 pb-16 pt-8">
         <div className="max-w-[640px] w-full text-center fade-up">
-          <p className="text-xs font-bold text-cf-gold uppercase tracking-[0.2em] mb-4">
+          <p className="text-[13px] font-bold text-cf-gold uppercase tracking-[0.2em] mb-4">
             Conduit Ventures
           </p>
           <h1 className="font-serif text-[40px] sm:text-[56px] font-bold text-cf-blue leading-[1.1] mb-5">
@@ -44,7 +44,7 @@ export default function HomePage() {
               <div className="w-10 h-10 bg-cf-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <span className="text-xl">&#128483;&#65039;</span>
               </div>
-              <h3 className="text-[15px] font-bold text-cf-blue mb-2">Just talk</h3>
+              <h3 className="text-[18px] font-bold text-cf-blue mb-2">Just talk</h3>
               <p className="text-[13px] text-cf-muted leading-relaxed">
                 Tell us your situation. Voice or text. We listen first &mdash; then ask only what we need.
               </p>
@@ -53,7 +53,7 @@ export default function HomePage() {
               <div className="w-10 h-10 bg-cf-gold/10 rounded-xl flex items-center justify-center mb-4">
                 <span className="text-xl">&#128506;</span>
               </div>
-              <h3 className="text-[15px] font-bold text-cf-blue mb-2">Five options</h3>
+              <h3 className="text-[18px] font-bold text-cf-blue mb-2">Five options</h3>
               <p className="text-[13px] text-cf-muted leading-relaxed">
                 Real plans with real costs, GPS drive times, and carpool matches. Choose one or mix and match.
               </p>
@@ -62,7 +62,7 @@ export default function HomePage() {
               <div className="w-10 h-10 bg-cf-green/10 rounded-xl flex items-center justify-center mb-4">
                 <span className="text-xl">&#129309;</span>
               </div>
-              <h3 className="text-[15px] font-bold text-cf-blue mb-2">Share the plan</h3>
+              <h3 className="text-[18px] font-bold text-cf-blue mb-2">Share the plan</h3>
               <p className="text-[13px] text-cf-muted leading-relaxed">
                 Send to carpool families and co-parents in one tap. Everyone sees what they need.
               </p>
@@ -70,7 +70,7 @@ export default function HomePage() {
           </div>
 
           {/* Trust line */}
-          <p className="mt-10 text-xs text-cf-muted">
+          <p className="mt-10 text-[13px] text-cf-muted">
             Built by parents, for parents. Powered by Conduit Ventures.
           </p>
         </div>
@@ -79,8 +79,8 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-cf-blue px-6 py-6">
         <div className="max-w-[900px] mx-auto flex items-center justify-between">
-          <p className="text-xs text-white/50">&copy; {new Date().getFullYear()} Conduit Ventures LLC</p>
-          <p className="text-xs text-white/50">CampFinder</p>
+          <p className="text-[13px] text-white/50">&copy; {new Date().getFullYear()} Conduit Ventures LLC</p>
+          <p className="text-[13px] text-white/50">CampFinder</p>
         </div>
       </footer>
     </div>

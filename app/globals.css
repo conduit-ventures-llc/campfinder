@@ -51,7 +51,7 @@
 
 .cf-output {
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
   color: #1C1917;
 }
@@ -63,7 +63,7 @@
 
 .cf-output h1 { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
 .cf-output h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; margin-top: 24px; }
-.cf-output h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; margin-top: 16px; }
+.cf-output h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; margin-top: 16px; }
 
 .cf-output p { margin-bottom: 12px; }
 .cf-output ul, .cf-output ol { margin-bottom: 12px; padding-left: 20px; }
@@ -90,13 +90,13 @@
   padding: 12px 16px;
   border-radius: 8px 8px 0 0;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .cf-output td {
   padding: 10px 16px;
   border-bottom: 1px solid #E8E0D8;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .cf-output table {
@@ -176,7 +176,7 @@
   display: inline-block;
   background: #E3EDF5;
   color: #0A1E3D;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   padding: 2px 8px;
   border-radius: 99px;
@@ -192,7 +192,7 @@
   margin-bottom: 16px;
 }
 .cf-output .resource-links-label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -212,7 +212,7 @@
 .cf-output .resource-icon { flex-shrink: 0; font-size: 14px; }
 .cf-output .resource-anchor { color: #0A1E3D; font-weight: 600; text-decoration: none; }
 .cf-output .resource-anchor:hover { text-decoration: underline; }
-.cf-output .resource-desc { color: #78716C; font-size: 12px; }
+.cf-output .resource-desc { color: #78716C; font-size: 13px; }
 
 /* Camp Deep Dive button */
 .cf-output .camp-learn-more-btn {
@@ -223,7 +223,7 @@
   border: 1px solid #C8922A;
   color: #C8922A;
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   border-radius: 20px;
   padding: 6px 16px;
@@ -240,7 +240,7 @@
 @media print {
   .no-print { display: none !important; }
   body { background: white !important; }
-  .cf-output { font-size: 12px; }
+  .cf-output { font-size: 13px; }
   .cf-output .camp-learn-more-btn { display: none !important; }
   .cf-output .resource-links-section { break-inside: avoid; }
   .cf-output .resource-anchor { color: #0A1E3D; }
@@ -287,7 +287,7 @@
 
 @keyframes floatLabel {
   from { transform: translateY(0); font-size: 15px; color: #78716C; }
-  to { transform: translateY(-22px); font-size: 11px; color: #0A1E3D; font-weight: 600; }
+  to { transform: translateY(-22px); font-size: 13px; color: #0A1E3D; font-weight: 600; }
 }
 
 @keyframes gradientShift {
@@ -378,7 +378,7 @@
 .floating-label-group input:focus ~ label,
 .floating-label-group input:not(:placeholder-shown) ~ label {
   top: 6px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: #0A1E3D;
   letter-spacing: 0.03em;

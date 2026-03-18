@@ -107,7 +107,7 @@ export default function CampDeepDive({
         <div className="sticky top-0 bg-white border-b border-[#E8E0D8] px-6 py-4 z-10">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-bold text-[#C8922A] uppercase tracking-wide mb-1">
+              <p className="text-[13px] font-bold text-[#C8922A] uppercase tracking-wide mb-1">
                 Camp Deep Dive
               </p>
               <h2
@@ -134,12 +134,12 @@ export default function CampDeepDive({
           {loading && (
             <div className="text-center py-16">
               <div className="w-8 h-8 border-2 border-[#C8922A]/30 border-t-[#C8922A] rounded-full spin-slow mx-auto mb-4" />
-              <p className="text-sm text-[#78716C]">CampFinder is researching this camp...</p>
+              <p className="text-[15px] text-[#78716C]">CampFinder is researching this camp...</p>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 text-sm text-red-800">
+            <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 text-[15px] text-red-800">
               {error}
             </div>
           )}
@@ -148,34 +148,34 @@ export default function CampDeepDive({
             <div className="space-y-6">
               {/* Description & Philosophy */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   Description &amp; Philosophy
                 </h3>
-                <p className="text-sm text-[#1C1917] leading-relaxed whitespace-pre-line">
+                <p className="text-[15px] text-[#1C1917] leading-relaxed whitespace-pre-line">
                   {data.description}
                 </p>
               </section>
 
               {/* Ages & Typical Day */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   Ages &amp; Typical Day
                 </h3>
-                <div className="bg-[#E3EDF5] rounded-xl px-4 py-3 text-sm text-[#0A1E3D] whitespace-pre-line">
+                <div className="bg-[#E3EDF5] rounded-xl px-4 py-3 text-[15px] text-[#0A1E3D] whitespace-pre-line">
                   {data.ages_schedule}
                 </div>
               </section>
 
               {/* What Kids Love */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   What Kids Love
                 </h3>
                 <ul className="space-y-2">
                   {data.kids_love.map((quote, i) => (
                     <li
                       key={i}
-                      className="bg-[#FFF8EB] border border-[#C8922A]/15 rounded-lg px-4 py-2.5 text-sm text-[#1C1917] italic"
+                      className="bg-[#FFF8EB] border border-[#C8922A]/15 rounded-lg px-4 py-2.5 text-[15px] text-[#1C1917] italic"
                     >
                       &ldquo;{quote}&rdquo;
                     </li>
@@ -185,14 +185,14 @@ export default function CampDeepDive({
 
               {/* What Parents Say */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   What Parents Say
                 </h3>
                 <ul className="space-y-2">
                   {data.parents_say.map((quote, i) => (
                     <li
                       key={i}
-                      className="bg-white border border-[#E8E0D8] rounded-lg px-4 py-2.5 text-sm text-[#1C1917]"
+                      className="bg-white border border-[#E8E0D8] rounded-lg px-4 py-2.5 text-[15px] text-[#1C1917]"
                     >
                       &ldquo;{quote}&rdquo;
                     </li>
@@ -202,12 +202,12 @@ export default function CampDeepDive({
 
               {/* ACA Accreditation */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   ACA Accreditation
                 </h3>
                 <div className="flex items-center gap-3">
                   <span
-                    className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                    className={`inline-block px-3 py-1 rounded-full text-[13px] font-bold ${
                       data.aca_status === "Accredited"
                         ? "bg-[#D8EFE3] text-[#2D6A4F]"
                         : "bg-gray-100 text-[#78716C]"
@@ -220,7 +220,7 @@ export default function CampDeepDive({
                       href={data.aca_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-[#C8922A] font-semibold hover:underline"
+                      className="text-[13px] text-[#C8922A] font-semibold hover:underline"
                     >
                       Verify on ACA
                     </a>
@@ -230,16 +230,16 @@ export default function CampDeepDive({
 
               {/* Financial Aid */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   Financial Aid
                 </h3>
-                <p className="text-sm text-[#1C1917]">{data.financial_aid}</p>
+                <p className="text-[15px] text-[#1C1917]">{data.financial_aid}</p>
                 {data.aid_link && (
                   <a
                     href={data.aid_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-[#C8922A] font-semibold hover:underline mt-1 inline-block"
+                    className="text-[13px] text-[#C8922A] font-semibold hover:underline mt-1 inline-block"
                   >
                     Apply for Financial Aid
                   </a>
@@ -248,13 +248,13 @@ export default function CampDeepDive({
 
               {/* Registration Steps */}
               <section>
-                <h3 className="text-xs font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
+                <h3 className="text-[13px] font-bold text-[#0A1E3D] uppercase tracking-wide mb-2">
                   Registration Steps
                 </h3>
                 <ol className="space-y-2">
                   {data.registration_steps.map((step, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-[#1C1917]">
-                      <span className="flex-shrink-0 w-6 h-6 bg-[#0A1E3D] text-white rounded-full flex items-center justify-center text-xs font-bold">
+                    <li key={i} className="flex gap-3 text-[15px] text-[#1C1917]">
+                      <span className="flex-shrink-0 w-6 h-6 bg-[#0A1E3D] text-white rounded-full flex items-center justify-center text-[13px] font-bold">
                         {i + 1}
                       </span>
                       <span className="pt-0.5">{step.replace(/^Step \d+:\s*/i, "")}</span>
@@ -271,14 +271,14 @@ export default function CampDeepDive({
           <div className="fixed bottom-0 right-0 w-full sm:w-[480px] bg-white border-t border-[#E8E0D8] px-6 py-4 z-10">
             <button
               onClick={() => onDraftEmail(campName)}
-              className="w-full bg-[#C8922A] text-white rounded-xl py-3 text-sm font-bold hover:opacity-90 transition min-h-[44px] mb-2"
+              className="w-full bg-[#C8922A] text-white rounded-xl py-3 text-[15px] font-bold hover:opacity-90 transition min-h-[44px] mb-2"
             >
               Draft Registration Email
             </button>
             <div className="flex gap-2">
               <button
                 onClick={() => onAddToPlan(data.description)}
-                className="flex-1 border-2 border-[#0A1E3D] text-[#0A1E3D] rounded-xl py-2.5 text-sm font-bold hover:bg-[#0A1E3D]/5 transition min-h-[44px]"
+                className="flex-1 border-2 border-[#0A1E3D] text-[#0A1E3D] rounded-xl py-2.5 text-[15px] font-bold hover:bg-[#0A1E3D]/5 transition min-h-[44px]"
               >
                 Add to My Plan
               </button>
@@ -289,7 +289,7 @@ export default function CampDeepDive({
                     "_blank"
                   );
                 }}
-                className="flex-1 border-2 border-[#0A1E3D] text-[#0A1E3D] rounded-xl py-2.5 text-sm font-bold hover:bg-[#0A1E3D]/5 transition min-h-[44px]"
+                className="flex-1 border-2 border-[#0A1E3D] text-[#0A1E3D] rounded-xl py-2.5 text-[15px] font-bold hover:bg-[#0A1E3D]/5 transition min-h-[44px]"
               >
                 Find Carpool
               </button>

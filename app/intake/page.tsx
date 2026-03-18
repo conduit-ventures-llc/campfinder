@@ -148,7 +148,7 @@ function ProgressDots({ currentPhase }: { currentPhase: Phase }) {
                   : "progress-dot--future"
               }`}
             />
-            <span className={`text-[9px] mt-1 font-medium tracking-wide ${
+            <span className={`text-[13px] mt-1 font-medium tracking-wide ${
               i <= effectiveIndex ? "text-cf-gold" : "text-gray-300"
             }`}>
               {PHASE_LABELS[p]}
@@ -169,7 +169,7 @@ function AutosaveIndicator({ saving }: { saving: boolean }) {
   return (
     <div className="fixed top-4 right-4 flex items-center gap-2 z-50">
       <div className="w-2 h-2 rounded-full bg-cf-gold save-pulse" />
-      <span className="text-[10px] text-cf-gold font-medium tracking-wide uppercase">Saving</span>
+      <span className="text-[13px] text-cf-gold font-medium tracking-wide uppercase">Saving</span>
     </div>
   );
 }
@@ -418,7 +418,7 @@ export default function CampFinderIntakePage() {
               <button
                 key={chip.label}
                 onClick={() => toggleChip(chip.label)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium border-2 transition-all duration-200 min-h-[44px] ${
+                className={`px-5 py-2.5 rounded-full text-[15px] font-medium border-2 transition-all duration-200 min-h-[44px] ${
                   activeChips.includes(chip.label)
                     ? "bg-cf-gold text-white border-cf-gold shadow-sm"
                     : "bg-white text-cf-blue border-cf-blue/20 hover:border-cf-gold/60 hover:bg-cf-gold/5"
@@ -438,17 +438,17 @@ export default function CampFinderIntakePage() {
                   <div className="w-2.5 h-2.5 rounded-full bg-cf-gold dot-pulse-2" />
                   <div className="w-2.5 h-2.5 rounded-full bg-cf-gold dot-pulse-3" />
                 </div>
-                <span className="text-sm text-cf-muted font-medium">Listening to what you said...</span>
+                <span className="text-[15px] text-cf-muted font-medium">Listening to what you said...</span>
               </div>
             ) : recording ? (
               <button onClick={stopRecording} className="flex items-center gap-3 bg-red-50 border-2 border-red-300 rounded-full px-8 py-4 min-h-[44px] hover:bg-red-100 transition-all duration-200">
                 <span className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                <span className="text-sm font-bold text-red-700">Recording... tap to stop</span>
+                <span className="text-[15px] font-bold text-red-700">Recording... tap to stop</span>
               </button>
             ) : (
               <button onClick={startRecording} className="flex items-center gap-4 bg-cf-blue border-2 border-cf-blue rounded-full px-8 py-4 min-h-[44px] hover:bg-cf-blue-dark transition-all duration-200 group">
                 <MicIcon />
-                <span className="text-sm font-bold text-white">At a fire pit? Just talk.</span>
+                <span className="text-[15px] font-bold text-white">At a fire pit? Just talk.</span>
               </button>
             )}
           </div>
@@ -538,7 +538,7 @@ export default function CampFinderIntakePage() {
           {/* Back button */}
           <button
             onClick={() => setPhase("open_mic")}
-            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-sm font-medium mb-6 transition-colors"
+            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-[15px] font-medium mb-6 transition-colors"
           >
             <BackArrow />
             <span>Back</span>
@@ -557,11 +557,11 @@ export default function CampFinderIntakePage() {
               <div className="premium-card-accent p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A1E3D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-                  <p className="text-xs font-bold text-cf-blue uppercase tracking-widest">Your Kids</p>
+                  <p className="text-[13px] font-bold text-cf-blue uppercase tracking-widest">Your Kids</p>
                 </div>
                 <div className="flex flex-wrap gap-2.5">
                   {extracted.kids.map((k, i) => (
-                    <span key={i} className="bg-cf-blue text-white text-sm font-bold px-4 py-2 rounded-full">
+                    <span key={i} className="bg-cf-blue text-white text-[15px] font-bold px-4 py-2 rounded-full">
                       {k.name}, {k.age}
                     </span>
                   ))}
@@ -574,7 +574,7 @@ export default function CampFinderIntakePage() {
               <div className="premium-card-accent p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A1E3D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
-                  <p className="text-xs font-bold text-cf-blue uppercase tracking-widest">Main Concerns</p>
+                  <p className="text-[13px] font-bold text-cf-blue uppercase tracking-widest">Main Concerns</p>
                 </div>
                 <div className="space-y-2">
                   {extracted.main_concerns.map((c, i) => (
@@ -592,7 +592,7 @@ export default function CampFinderIntakePage() {
               <div className="premium-card p-6" style={{ borderLeft: "4px solid #2D6A4F" }}>
                 <div className="flex items-center gap-2 mb-3">
                   <CheckIcon className="text-cf-green" />
-                  <p className="text-xs font-bold text-cf-green uppercase tracking-widest">Already Figured Out</p>
+                  <p className="text-[13px] font-bold text-cf-green uppercase tracking-widest">Already Figured Out</p>
                 </div>
                 <div className="space-y-2">
                   {extracted.whats_solved.map((s, i) => (
@@ -610,7 +610,7 @@ export default function CampFinderIntakePage() {
               <div className="premium-card p-6" style={{ borderLeft: "4px solid #C8922A" }}>
                 <div className="flex items-center gap-2 mb-3">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8922A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
-                  <p className="text-xs font-bold text-cf-gold uppercase tracking-widest">Still Need Help With</p>
+                  <p className="text-[13px] font-bold text-cf-gold uppercase tracking-widest">Still Need Help With</p>
                 </div>
                 <div className="space-y-2">
                   {extracted.whats_not_solved.map((s, i) => (
@@ -627,13 +627,13 @@ export default function CampFinderIntakePage() {
             <div className="grid grid-cols-2 gap-4">
               {extracted.budget_mentioned && (
                 <div className="premium-card p-5">
-                  <p className="text-[10px] font-bold text-cf-muted uppercase tracking-widest mb-1">Budget</p>
+                  <p className="text-[13px] font-bold text-cf-muted uppercase tracking-widest mb-1">Budget</p>
                   <p className="text-lg font-bold text-cf-blue">{extracted.budget_mentioned}</p>
                 </div>
               )}
               {extracted.zip_code && (
                 <div className="premium-card p-5">
-                  <p className="text-[10px] font-bold text-cf-muted uppercase tracking-widest mb-1">Location</p>
+                  <p className="text-[13px] font-bold text-cf-muted uppercase tracking-widest mb-1">Location</p>
                   <p className="text-lg font-bold text-cf-blue">{extracted.zip_code}</p>
                 </div>
               )}
@@ -678,7 +678,7 @@ export default function CampFinderIntakePage() {
           {/* Back button */}
           <button
             onClick={() => setPhase("what_i_heard")}
-            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-sm font-medium mb-6 transition-colors"
+            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-[15px] font-medium mb-6 transition-colors"
           >
             <BackArrow />
             <span>Back</span>
@@ -700,12 +700,12 @@ export default function CampFinderIntakePage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-[16px] font-bold text-cf-text">{kid.name}</p>
-                    <p className="text-xs text-cf-muted">Age {kid.age}</p>
+                    <p className="text-[13px] text-cf-muted">Age {kid.age}</p>
                   </div>
                   {mustHaves[kid.name]?.trim() && (
                     <div className="flex items-center gap-1.5 bg-cf-gold/10 px-3 py-1.5 rounded-full">
                       <CheckIcon className="text-cf-gold" />
-                      <span className="text-xs font-bold text-cf-gold">Locked in</span>
+                      <span className="text-[13px] font-bold text-cf-gold">Locked in</span>
                     </div>
                   )}
                 </div>
@@ -714,7 +714,7 @@ export default function CampFinderIntakePage() {
                     value={mustHaves[kid.name] || ""}
                     onChange={(e) => setMustHaves((prev) => ({ ...prev, [kid.name]: e.target.value }))}
                     placeholder=" "
-                    className="w-full bg-cf-warm border-2 border-cf-border rounded-xl px-6 py-4 pt-7 text-sm resize-none h-24 focus:border-cf-blue transition-all duration-200"
+                    className="w-full bg-cf-warm border-2 border-cf-border rounded-xl px-6 py-4 pt-7 text-[15px] resize-none h-24 focus:border-cf-blue transition-all duration-200"
                   />
                   <label style={{ left: 24, top: 14 }}>Non-negotiable camps for {kid.name}...</label>
                 </div>
@@ -725,7 +725,7 @@ export default function CampFinderIntakePage() {
           <div className="flex items-center gap-3 mt-10">
             <button
               onClick={() => setPhase("what_i_heard")}
-              className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-sm font-medium transition-colors"
+              className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-[15px] font-medium transition-colors"
             >
               <BackArrow />
             </button>
@@ -765,7 +765,7 @@ export default function CampFinderIntakePage() {
           {/* Back button */}
           <button
             onClick={() => setPhase(extracted?.kids.length ? "must_haves" : "what_i_heard")}
-            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-sm font-medium mb-6 transition-colors"
+            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-[15px] font-medium mb-6 transition-colors"
           >
             <BackArrow />
             <span>Back</span>
@@ -780,24 +780,24 @@ export default function CampFinderIntakePage() {
 
           {/* Summer Grid */}
           <div className="premium-card overflow-hidden mb-6">
-            <div className="bg-cf-blue text-white px-5 py-3.5 text-sm font-bold flex items-center justify-between">
+            <div className="bg-cf-blue text-white px-5 py-3.5 text-[15px] font-bold flex items-center justify-between">
               <span className="font-serif text-[15px]">Summer 2026</span>
-              <span className="text-xs text-white/50 font-medium">{calendarEntries.length} commitment{calendarEntries.length !== 1 ? "s" : ""}</span>
+              <span className="text-[13px] text-white/50 font-medium">{calendarEntries.length} commitment{calendarEntries.length !== 1 ? "s" : ""}</span>
             </div>
             <div className="divide-y divide-cf-border/50">
               {SUMMER_WEEKS.map((week, idx) => (
                 <div key={week} className={`flex items-center gap-3 px-5 py-3 transition-colors hover:bg-cf-blue-light/30 ${idx % 2 === 0 ? "bg-white" : "bg-cf-warm/50"}`}>
-                  <span className="text-xs font-mono text-cf-muted w-28 flex-shrink-0 font-medium">{week}</span>
+                  <span className="text-[13px] font-mono text-cf-muted w-28 flex-shrink-0 font-medium">{week}</span>
                   <div className="flex-1 flex flex-wrap gap-1.5">
                     {calendarEntries
                       .filter((e) => e.days.includes(week.split("\u2013")[0].split(" ")[0]))
                       .map((e, i) => (
-                        <span key={i} className="text-[10px] bg-cf-blue text-white px-2.5 py-1 rounded-full font-bold">
+                        <span key={i} className="text-[13px] bg-cf-blue text-white px-2.5 py-1 rounded-full font-bold">
                           {e.activity} ({e.kids})
                         </span>
                       ))}
                   </div>
-                  {homeZip && <span className="text-[10px] text-cf-muted/50 font-mono">{homeZip}</span>}
+                  {homeZip && <span className="text-[13px] text-cf-muted/50 font-mono">{homeZip}</span>}
                 </div>
               ))}
             </div>
@@ -805,12 +805,12 @@ export default function CampFinderIntakePage() {
 
           {/* Add commitment */}
           <div className="premium-card p-6 mb-8">
-            <p className="text-sm font-bold text-cf-blue mb-4 uppercase tracking-widest text-[11px]">Add a recurring commitment</p>
+            <p className="text-[13px] font-bold text-cf-blue mb-4 uppercase tracking-widest">Add a recurring commitment</p>
             <div className="grid grid-cols-2 gap-3">
               <div className="floating-label-group">
                 <input
                   placeholder=" "
-                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-sm focus:border-cf-blue transition-all duration-200 min-h-[48px]"
+                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-[15px] focus:border-cf-blue transition-all duration-200 min-h-[48px]"
                   id="cal-activity"
                 />
                 <label style={{ left: 16, top: 12, fontSize: 13 }}>Activity</label>
@@ -818,7 +818,7 @@ export default function CampFinderIntakePage() {
               <div className="floating-label-group">
                 <input
                   placeholder=" "
-                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-sm focus:border-cf-blue transition-all duration-200 min-h-[48px]"
+                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-[15px] focus:border-cf-blue transition-all duration-200 min-h-[48px]"
                   id="cal-days"
                 />
                 <label style={{ left: 16, top: 12, fontSize: 13 }}>Days</label>
@@ -826,7 +826,7 @@ export default function CampFinderIntakePage() {
               <div className="floating-label-group">
                 <input
                   placeholder=" "
-                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-sm focus:border-cf-blue transition-all duration-200 min-h-[48px]"
+                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-[15px] focus:border-cf-blue transition-all duration-200 min-h-[48px]"
                   id="cal-kids"
                 />
                 <label style={{ left: 16, top: 12, fontSize: 13 }}>Which kid(s)</label>
@@ -834,7 +834,7 @@ export default function CampFinderIntakePage() {
               <div className="floating-label-group">
                 <input
                   placeholder=" "
-                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-sm focus:border-cf-blue transition-all duration-200 min-h-[48px]"
+                  className="w-full border-2 border-cf-border rounded-xl px-4 py-3 pt-6 text-[15px] focus:border-cf-blue transition-all duration-200 min-h-[48px]"
                   id="cal-duration"
                 />
                 <label style={{ left: 16, top: 12, fontSize: 13 }}>Duration</label>
@@ -855,7 +855,7 @@ export default function CampFinderIntakePage() {
                   haptic(10);
                 }
               }}
-              className="mt-4 bg-cf-blue text-white rounded-full px-6 py-2.5 text-sm font-bold hover:bg-cf-blue-dark transition-all duration-200 min-h-[44px] cta-pill"
+              className="mt-4 bg-cf-blue text-white rounded-full px-6 py-2.5 text-[15px] font-bold hover:bg-cf-blue-dark transition-all duration-200 min-h-[44px] cta-pill"
             >
               <span>Add Commitment</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
@@ -865,7 +865,7 @@ export default function CampFinderIntakePage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setPhase(extracted?.kids.length ? "must_haves" : "what_i_heard")}
-              className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-sm font-medium transition-colors"
+              className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-[15px] font-medium transition-colors"
             >
               <BackArrow />
             </button>
@@ -908,7 +908,7 @@ export default function CampFinderIntakePage() {
                 setPhase("life_calendar");
               }
             }}
-            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-sm font-medium mb-6 transition-colors"
+            className="flex items-center gap-2 text-cf-muted hover:text-cf-blue text-[15px] font-medium mb-6 transition-colors"
           >
             <BackArrow />
             <span>Back</span>
@@ -920,7 +920,7 @@ export default function CampFinderIntakePage() {
           <p className="text-cf-muted text-[15px] mb-3">
             We only ask what you haven&apos;t already told us.
           </p>
-          <p className="text-xs text-cf-muted mb-10 font-medium">
+          <p className="text-[13px] text-cf-muted mb-10 font-medium">
             Question {currentAdaptiveIndex + 1} of {questions.length}
           </p>
 
@@ -928,7 +928,7 @@ export default function CampFinderIntakePage() {
           {currentQ && (
             <div key={currentQ.id} className="slide-in-right">
               <label className="block text-[16px] font-bold text-cf-text mb-1.5">{currentQ.label}</label>
-              <p className="text-sm text-cf-muted mb-4">Take your time. Every detail helps us find the right fit.</p>
+              <p className="text-[15px] text-cf-muted mb-4">Take your time. Every detail helps us find the right fit.</p>
               <div className="floating-label-group">
                 <textarea
                   value={answers[currentQ.id] || ""}
