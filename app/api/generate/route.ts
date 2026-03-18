@@ -7,7 +7,7 @@ import { campfinderConfig } from "@/config/verticals/campfinder.config";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { client_id, output_type } = body;
+    const { client_id, output_type, refine_instruction } = body;
 
     if (!client_id || !output_type) {
       return NextResponse.json({ error: "Missing client_id or output_type" }, { status: 400 });
@@ -40,6 +40,11 @@ export async function POST(request: NextRequest) {
       userPrompt = campfinderConfig.fiveOptionsPrompt + `\n\nFamily: ${kidsStr}\nBudget: ${intake.budget_mentioned || "Not specified"}\nZIP: ${intake.zip_code || "Not provided"}\nConcerns: ${JSON.stringify(intake.main_concerns || [])}`;
     } else {
       userPrompt = `Generate a ${output_type} for this family.\n\nKids: ${kidsStr}\nBudget: ${intake.budget_mentioned || "Not specified"}\nZIP: ${intake.zip_code || "Not provided"}\nConcerns: ${JSON.stringify(intake.main_concerns || [])}\nWhat's not solved: ${JSON.stringify(intake.whats_not_solved || [])}\n\nOutput as clean HTML. Reference each child by name. Show drive times in minutes. Show real costs.`;
+    }
+
+    // Smart Refine: prepend refinement instruction if provided
+    if (refine_instruction) {
+      userPrompt = `REFINEMENT REQUEST: ${refine_instruction}\n\nPlease regenerate the plan with this refinement applied. Keep the same format and level of detail.\n\n${userPrompt}`;
     }
 
     const result = streamText({

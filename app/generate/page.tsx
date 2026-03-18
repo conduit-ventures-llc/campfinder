@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { useCompletion } from "@ai-sdk/react";
 import { campfinderConfig } from "@/config/verticals/campfinder.config";
+import { findMatchingResources, buildResourceLinksHtml } from "@/lib/resource-links";
+import CampDeepDive from "@/components/CampDeepDive";
 
 /** Strip markdown code fences and preamble from Claude output */
 function cleanHtml(raw: string): string {
@@ -18,7 +20,22 @@ function cleanHtml(raw: string): string {
   if (tagStart > 0) {
     html = html.slice(tagStart);
   }
+  // Inject resource links
+  html = injectResourceLinks(html);
   return html;
+}
+
+/** Scan output HTML for keywords and inject a resource links section */
+function injectResourceLinks(html: string): string {
+  const resources = findMatchingResources(html);
+  if (resources.length === 0) return html;
+  const linksHtml = buildResourceLinksHtml(resources);
+  // Insert before the last closing tag, or append
+  const lastClose = html.lastIndexOf("</");
+  if (lastClose > 0) {
+    return html.slice(0, lastClose) + linksHtml + html.slice(lastClose);
+  }
+  return html + linksHtml;
 }
 
 function GenerateContent() {
@@ -29,6 +46,18 @@ function GenerateContent() {
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState<"map" | "builder">("map");
+
+  // Smart Refine state
+  const [refineInput, setRefineInput] = useState("");
+  const [refining, setRefining] = useState(false);
+
+  // Camp Deep Dive state
+  const [deepDiveOpen, setDeepDiveOpen] = useState(false);
+  const [deepDiveData, setDeepDiveData] = useState<{ campName: string; campHtml: string }>({
+    campName: "",
+    campHtml: "",
+  });
+  const outputRef = useRef<HTMLDivElement>(null);
 
   const { completion, isLoading, complete, setCompletion } = useCompletion({
     api: "/api/generate",
@@ -49,6 +78,74 @@ function GenerateContent() {
   function handleCopy() {
     navigator.clipboard.writeText(output || cleanHtml(completion));
   }
+
+  // Smart Refine handler
+  async function handleRefine() {
+    if (!refineInput.trim() || refining) return;
+    setRefining(true);
+    setError("");
+    setOutput("");
+    setCompletion("");
+    await complete("generate", {
+      body: {
+        client_id: clientId,
+        output_type: selectedType,
+        refine_instruction: refineInput.trim(),
+      },
+    });
+    setRefineInput("");
+    setRefining(false);
+  }
+
+  // Deep Dive: inject "Learn More" buttons into camp cards after render
+  const injectDeepDiveButtons = useCallback(() => {
+    if (!outputRef.current) return;
+    const cards = outputRef.current.querySelectorAll(
+      ".camp-card, div[class*='camp']"
+    );
+    cards.forEach((card) => {
+      if (card.querySelector(".camp-learn-more-btn")) return;
+      // Extract camp name from first heading or strong tag
+      const heading =
+        card.querySelector("h2, h3, h4, strong");
+      const name = heading?.textContent?.trim() || "This Camp";
+      const btn = document.createElement("button");
+      btn.className = "camp-learn-more-btn";
+      btn.textContent = "Learn More \u2192";
+      btn.dataset.campName = name;
+      card.appendChild(btn);
+    });
+  }, []);
+
+  // Run injection after output renders
+  useEffect(() => {
+    if (output || completion) {
+      // Small delay to ensure DOM is updated
+      const t = setTimeout(injectDeepDiveButtons, 100);
+      return () => clearTimeout(t);
+    }
+  }, [output, completion, injectDeepDiveButtons]);
+
+  // Event delegation for deep dive button clicks
+  useEffect(() => {
+    const container = outputRef.current;
+    if (!container) return;
+
+    function handleClick(e: MouseEvent) {
+      const btn = (e.target as HTMLElement).closest(
+        ".camp-learn-more-btn"
+      ) as HTMLElement | null;
+      if (!btn) return;
+      const campName = btn.dataset.campName || "Unknown Camp";
+      const card = btn.closest(".camp-card, div[class*='camp']");
+      const campHtml = card?.innerHTML || "";
+      setDeepDiveData({ campName, campHtml });
+      setDeepDiveOpen(true);
+    }
+
+    container.addEventListener("click", handleClick);
+    return () => container.removeEventListener("click", handleClick);
+  }, [output, completion]);
 
   if (!clientId) {
     return (
@@ -154,7 +251,52 @@ function GenerateContent() {
             {activeTab === "map" && (
               <>
                 <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4 shadow-sm">
-                  <div className="cf-output" dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
+                  <div ref={outputRef} className="cf-output" dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
+                </div>
+
+                {/* Smart Refine */}
+                <div className="mt-4 mb-4">
+                  <p className="text-xs font-bold text-cf-blue uppercase tracking-wide mb-2">Refine Your Plan</p>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {[
+                      "Swap this camp",
+                      "Find carpool",
+                      "Add sibling discount",
+                      "Try different week",
+                      "Show cheaper options",
+                      "Show closer options",
+                      "Add to waitlist",
+                      "Draft registration email",
+                    ].map((chip) => (
+                      <button
+                        key={chip}
+                        onClick={() => setRefineInput(chip + ": ")}
+                        className="px-3 py-1.5 rounded-full text-xs font-semibold border border-cf-gold/30 bg-cf-gold/5 text-cf-gold hover:bg-cf-gold hover:text-white transition cursor-pointer"
+                      >
+                        + {chip}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <textarea
+                      value={refineInput}
+                      onChange={(e) => setRefineInput(e.target.value)}
+                      placeholder="Tell CampFinder what to change..."
+                      rows={2}
+                      className="flex-1 border border-cf-border rounded-xl px-4 py-3 text-sm bg-white focus:border-cf-gold/50 focus:ring-1 focus:ring-cf-gold/20 resize-none"
+                    />
+                    <button
+                      onClick={handleRefine}
+                      disabled={!refineInput.trim() || refining}
+                      className={`px-5 rounded-xl text-sm font-bold transition min-h-[44px] ${
+                        !refineInput.trim() || refining
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "bg-cf-blue text-white hover:opacity-90 cursor-pointer"
+                      }`}
+                    >
+                      {refining ? "Refining..." : "Refine"}
+                    </button>
+                  </div>
                 </div>
 
                 {/* Execution Layer — Camp Action Bar */}
@@ -294,6 +436,23 @@ function GenerateContent() {
           </div>
         )}
       </div>
+
+      {/* Camp Deep Dive Panel */}
+      <CampDeepDive
+        isOpen={deepDiveOpen}
+        onClose={() => setDeepDiveOpen(false)}
+        campName={deepDiveData.campName}
+        campHtml={deepDiveData.campHtml}
+        clientId={clientId}
+        onAddToPlan={(content) => {
+          setDeepDiveOpen(false);
+          setRefineInput("Add this camp to my plan: " + content.slice(0, 100));
+        }}
+        onDraftEmail={(name) => {
+          const emailBody = `Hi — I'm interested in registering my child for ${name}. Could you send me information about availability, registration, and any deposits required?\n\nThank you!`;
+          window.location.href = `mailto:?subject=${encodeURIComponent(name)} Registration Inquiry&body=${encodeURIComponent(emailBody)}`;
+        }}
+      />
     </div>
   );
 }

@@ -182,11 +182,68 @@
   border-radius: 99px;
 }
 
+/* Resource Links */
+.cf-output .resource-links-section {
+  background: #FFF8EB;
+  border: 1px solid rgba(200, 146, 42, 0.2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+.cf-output .resource-links-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C8922A;
+  margin-bottom: 10px;
+}
+.cf-output .resource-links-list { list-style: none; padding: 0; margin: 0; }
+.cf-output .resource-link-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cf-output .resource-link-item:last-child { margin-bottom: 0; }
+.cf-output .resource-icon { flex-shrink: 0; font-size: 14px; }
+.cf-output .resource-anchor { color: #0A1E3D; font-weight: 600; text-decoration: none; }
+.cf-output .resource-anchor:hover { text-decoration: underline; }
+.cf-output .resource-desc { color: #78716C; font-size: 12px; }
+
+/* Camp Deep Dive button */
+.cf-output .camp-learn-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #C8922A;
+  color: #C8922A;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 6px 16px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+.cf-output .camp-learn-more-btn:hover {
+  background: #C8922A;
+  color: white;
+}
+
 /* Print styles */
 @media print {
   .no-print { display: none !important; }
   body { background: white !important; }
   .cf-output { font-size: 12px; }
+  .cf-output .camp-learn-more-btn { display: none !important; }
+  .cf-output .resource-links-section { break-inside: avoid; }
+  .cf-output .resource-anchor { color: #0A1E3D; }
 }
 
 /* ─── Premium Intake Animations ─────────────────────────────────────────── */
