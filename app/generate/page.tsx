@@ -28,6 +28,7 @@ function GenerateContent() {
   const [selectedType, setSelectedType] = useState("The Five Options");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState<"map" | "builder">("map");
 
   const { completion, isLoading, complete, setCompletion } = useCompletion({
     api: "/api/generate",
@@ -129,9 +130,119 @@ function GenerateContent() {
         {/* Output */}
         {(output || completion) && (
           <div className="fade-up">
-            <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4 shadow-sm">
-              <div className="cf-output" dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
+            {/* Tab toggle: Summer Map / Build My Plan */}
+            <div className="flex gap-1 mb-4">
+              <button
+                onClick={() => setActiveTab("map")}
+                className={`px-4 py-2.5 rounded-xl text-sm font-bold transition min-h-[44px] ${
+                  activeTab === "map" ? "bg-cf-blue text-white" : "bg-white text-cf-text border border-cf-border"
+                }`}
+              >
+                Summer Map
+              </button>
+              <button
+                onClick={() => setActiveTab("builder")}
+                className={`px-4 py-2.5 rounded-xl text-sm font-bold transition min-h-[44px] ${
+                  activeTab === "builder" ? "bg-cf-blue text-white" : "bg-white text-cf-text border border-cf-border"
+                }`}
+              >
+                Build My Plan
+              </button>
             </div>
+
+            {/* Summer Map Tab */}
+            {activeTab === "map" && (
+              <>
+                <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4 shadow-sm">
+                  <div className="cf-output" dangerouslySetInnerHTML={{ __html: output || cleanHtml(completion) }} />
+                </div>
+
+                {/* Execution Layer — Camp Action Bar */}
+                <div className="bg-cf-gold/5 border border-cf-gold/20 rounded-2xl p-5 mb-4">
+                  <h3 className="text-sm font-bold text-cf-blue mb-2">Ready to register?</h3>
+                  <p className="text-xs text-cf-muted mb-3">
+                    Every camp in your plan has registration details. Tap &ldquo;Draft Email&rdquo; on any camp card above to generate a personalized registration email you can review and send.
+                  </p>
+                  <button
+                    onClick={() => {
+                      const emailBody = `Hi — I'm interested in registering my child for your camp program. Could you send me information about availability, registration, and any deposits required?\n\nThank you!`;
+                      window.location.href = `mailto:?subject=Camp Registration Inquiry&body=${encodeURIComponent(emailBody)}`;
+                    }}
+                    className="bg-cf-gold text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:opacity-90 transition min-h-[44px]"
+                  >
+                    Draft Registration Email
+                  </button>
+                </div>
+              </>
+            )}
+
+            {/* Mix and Match Builder Tab */}
+            {activeTab === "builder" && (
+              <div className="bg-white border border-cf-border rounded-2xl p-6 sm:p-8 mb-4 shadow-sm">
+                <h2 className="font-serif text-xl font-bold text-cf-blue mb-2">Build Your Plan</h2>
+                <p className="text-cf-muted text-sm mb-6">
+                  Drag camps between slots to build your custom summer. Conflicts and costs update in real time.
+                </p>
+
+                {/* Running totals */}
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  <div className="bg-cf-warm rounded-xl p-3 text-center">
+                    <p className="text-xs text-cf-muted">Total Cost</p>
+                    <p className="text-lg font-bold font-mono text-cf-blue">$0</p>
+                  </div>
+                  <div className="bg-cf-warm rounded-xl p-3 text-center">
+                    <p className="text-xs text-cf-muted">Weeks Covered</p>
+                    <p className="text-lg font-bold font-mono text-cf-blue">0/13</p>
+                  </div>
+                  <div className="bg-cf-warm rounded-xl p-3 text-center">
+                    <p className="text-xs text-cf-muted">Conflicts</p>
+                    <p className="text-lg font-bold font-mono text-cf-green">0</p>
+                  </div>
+                </div>
+
+                {/* Three-zone builder */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {/* Your Plan */}
+                  <div>
+                    <p className="text-xs font-bold text-cf-blue uppercase tracking-wide mb-2">Your Plan</p>
+                    <div className="bg-cf-blue/5 border-2 border-dashed border-cf-blue/20 rounded-xl p-4 min-h-[200px]">
+                      <p className="text-xs text-cf-muted text-center py-8">
+                        Drag camps here from Available Options to build your plan.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Available Options */}
+                  <div>
+                    <p className="text-xs font-bold text-cf-gold uppercase tracking-wide mb-2">Available Options</p>
+                    <div className="bg-cf-gold/5 border-2 border-dashed border-cf-gold/20 rounded-xl p-4 min-h-[200px]">
+                      <p className="text-xs text-cf-muted text-center py-8">
+                        Options from your Summer Map appear here. Drag them into Your Plan.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Swap Pool */}
+                  <div>
+                    <p className="text-xs font-bold text-cf-muted uppercase tracking-wide mb-2">Swap Pool</p>
+                    <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl p-4 min-h-[200px]">
+                      <p className="text-xs text-cf-muted text-center py-8">
+                        Alternatives go here. Swap them in if you change your mind.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <button className="flex-1 bg-cf-gold text-white rounded-xl py-3.5 text-sm font-bold hover:opacity-90 transition min-h-[44px]">
+                    Save My Plan
+                  </button>
+                  <button className="flex-1 border-2 border-cf-blue text-cf-blue rounded-xl py-3.5 text-sm font-bold hover:bg-cf-blue/5 transition min-h-[44px]">
+                    Share Plan
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Action buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
@@ -157,6 +268,28 @@ function GenerateContent() {
               <button className="flex-1 bg-cf-blue-light text-cf-blue border border-cf-blue/20 rounded-xl py-3 text-sm font-bold hover:bg-cf-blue/10 transition min-h-[44px]">
                 Share with co-parent
               </button>
+            </div>
+
+            {/* End Moment — Operator Recruitment */}
+            <div className="mt-6 bg-cf-blue rounded-2xl p-6 sm:p-8 text-center">
+              <p className="text-xs text-white/50 uppercase tracking-wide mb-2">You just saved hours</p>
+              <h3 className="font-serif text-xl font-bold text-white mb-3">
+                You&apos;re not the only parent with this puzzle.
+              </h3>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <a
+                  href="https://conduitventures.com"
+                  className="bg-cf-gold text-white rounded-xl px-6 py-3 text-sm font-bold hover:opacity-90 transition min-h-[44px]"
+                >
+                  Tell me about becoming an expert
+                </a>
+                <button
+                  onClick={handleCopy}
+                  className="bg-white/10 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-white/20 transition min-h-[44px]"
+                >
+                  Share with another parent
+                </button>
+              </div>
             </div>
           </div>
         )}
