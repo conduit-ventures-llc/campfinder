@@ -29,6 +29,15 @@ main      ← Production. Auto-deploys to Vercel. Merge from dev only.
 - TypeScript must be clean before every push
 - SYNC-GAPS.md must show zero blocking gaps before push
 
+## TIMEZONE — NON-NEGOTIABLE
+
+Joe is in New York City. Eastern Time always.
+Assume business hours 8am-midnight ET when Joe is working.
+Never say "tomorrow" when it's still today in ET.
+Vercel crons = UTC only. All human-facing times = ET only.
+EDT = UTC-4 (March-November) — currently EDT.
+EST = UTC-5 (November-March).
+
 ## ENVIRONMENT VARIABLES
 
 Never commit `.env.local`. Required keys:
